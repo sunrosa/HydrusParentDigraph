@@ -1,9 +1,7 @@
-import graphviz
-
 def main():
     file_target = input("target file > ")
     tags = []
-    dot = graphviz.Digraph()
+    output = ""
 
     sequence = 0
     append = []
@@ -19,11 +17,13 @@ def main():
             if sequence == 1 or sequence == 3:
                 append.append(line[:-1])
 
+    output += "digraph {\n"
     for tuple in tags:
-        dot.edge(tuple[0], tuple[1])
+        output += "    " + "\"" + tuple[0] + "\"" + " -> " + "\"" + tuple[1] + "\"" + "\n"
+    output += "}\n"
 
     with open(f"{file_target}.gv", "w", encoding="utf8") as file:
-        file.write(dot.source)
+        file.write(output)
 
 
 if __name__ == "__main__":
